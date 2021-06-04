@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public class CuentaBancaria implements Comparable<CuentaBancaria>{
 	
 	private long numCuenta =0L;
-	public String nomCliente="";
-	public float saldo=0f;
+	private String nomCliente="";
+	private float saldo=0f;
 	private LocalDate fechaApertura= null;
 	private LocalDate fechaActualizacion= null;
 	
@@ -111,8 +111,8 @@ public class CuentaBancaria implements Comparable<CuentaBancaria>{
 	 * Sets a value to attribute saldo. 
 	 * @param newSaldo 
 	 */
-	public void setSaldo(float newSaldo) {
-		this.saldo = newSaldo;
+	public void setSaldo(float saldo) {
+		this.saldo = saldo;
 	}
 
 	/**

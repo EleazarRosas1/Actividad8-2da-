@@ -1,5 +1,6 @@
 package clases.ito.poo;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import clases.ito.poo.CuentaBancaria;
 import interfaces.ito.poo.Arreglo;
@@ -112,8 +113,7 @@ public class CuentasBancarias implements Arreglo<CuentaBancaria>{/*normalmente a
 		CuentaBancaria cb=null;
 		if ( posicion<=this.ultimo){
 			cb=cuentas[posicion];
-			cb.saldo=cb.saldo+monto;
-			
+			cb.setSaldo(cb.getSaldo()+monto);			
 		}
 				cb.setFechaActualizacion(LocalDate.now());		
 				return cb;
@@ -123,11 +123,11 @@ public class CuentasBancarias implements Arreglo<CuentaBancaria>{/*normalmente a
 		CuentaBancaria td=null;
 		if(posicion<=this.ultimo) {
 			td=cuentas[posicion];
-			if(td.saldo<monto) {
+			if(td.getSaldo()<monto) {
 				System.out.println("\n\n\nEl saldo es insuficiente para hacer un retiro, y queda de la siguiente manera:");
 			}else 
-				td.saldo=td.saldo-monto;
-		}
+				td.setSaldo(td.getSaldo()-monto);
+						}
 		td.setFechaActualizacion(LocalDate.now());
 		return td;
 		
@@ -142,62 +142,8 @@ public class CuentasBancarias implements Arreglo<CuentaBancaria>{/*normalmente a
 		}
 		return am;
 	}
-	public float MontosTotales() {
-		CuentaBancaria a=null;
-		float acumulador=0;
-		for(int i=0;i<=this.ultimo;i++) {
-			a=cuentas[i];
-			acumulador=acumulador+a.saldo;
-			
-		}
-			return acumulador;
-	}
 	
 	
-	
-	public float PromedioMontosTotales() {
-		CuentaBancaria a=null;
-		float contador,acumulador=0;int i=0;
-		for(;i<=this.ultimo;i++) {
-			a=cuentas[i];
-			acumulador=acumulador+a.saldo;
-			
-		}
-			contador=acumulador/i;
-			return contador;
-	}
-	
-
-	public CuentaBancaria CuentaMillonaria() {
-		CuentaBancaria pezgordo=null;
-		int i=0;
-		for(;i<=this.ultimo;i++)
-			
-			if(this.getItem(i).saldo>10000) 
-				pezgordo=cuentas[i];
-			
-		return pezgordo;
-		}
-	
-	public CuentaBancaria Saldomax() {
-		CuentaBancaria d=null;
-		int i=0;
-		for(;i<=this.ultimo;i++)
-			if(this.getItem(i).saldo>this.getItem(this.ultimo).saldo--) {
-				
-					d=cuentas[i];
-			}
-		return d;
-	}
-	public CuentaBancaria Saldomin() {
-		CuentaBancaria a =null;
-		int i=0;
-		for(; i<=this.ultimo;i++){
-			if(this.getItem(i).saldo<getItem(this.ultimo).saldo)
-				a=cuentas[i];
-		}
-		return a;
-	}
 	
 }
 

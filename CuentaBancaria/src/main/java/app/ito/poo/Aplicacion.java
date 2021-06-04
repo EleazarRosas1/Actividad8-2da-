@@ -5,12 +5,13 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.Date;
 public class Aplicacion {
-	static CuentasBancarias c;
+	static CuentasBancarias c= new CuentasBancarias();
+	
 	
 
 	
 	static void run(){
-		c= new CuentasBancarias();
+		
 		int l;
 		Scanner lector=new Scanner(System.in);
 	System.out.println("Bienvenido a Banco bienes mexicanos\n elige con detenimiento lo que desees hacer:"
@@ -109,23 +110,23 @@ public class Aplicacion {
 														a= lector.nextInt();
 														switch (a) {
 														case 1:
-															System.out.println("\n\nEl monto total de todas las cuentas es: $"+c.MontosTotales());
+															MontosTotales();
 															break;
 															
 															case 2:
-																System.out.println("\n\nEl promedio de montos es de: $"+c.PromedioMontosTotales());
+																PromedioMontosTotales();
 																break;
 																
 																case 3:
-																	System.out.println("\n\nCuentas con un monto mayor a $10,000.00: "+c.CuentaMillonaria());
+																	CuentaMillonaria();
 																	break;
 																	
 																	case 4:
-																		System.out.println("\n\nCuenta con saldo maximo: "+c.Saldomax());
+																		CuentasMayores2();
 																		break;
 																		
 																		case 5:
-																			System.out.println("\n\nCuenta con el saldo minimo"+c.Saldomin());
+																			CuentasMenores2();
 																			break;
 														}
 												}while(a>0&&a<6);
@@ -143,32 +144,97 @@ public class Aplicacion {
 	
 	
 	
-	/*
 	
-	c.addItem(new CuentaBancaria(66,"Elias rojas",4000,LocalDate.of(2021, 4, 24)));
-	c.addItem(new CuentaBancaria(34,"Mariana Rodriguez",46000,LocalDate.of(2021, 5, 30)));
-	c.addItem(new CuentaBancaria(32,"Sofia Morales",70000,LocalDate.of(2021, 12, 2)));
-	c.addItem(new CuentaBancaria(31,"Karolina Lopez",18000,LocalDate.of(2021, 3, 12)));
-	c.addItem(new CuentaBancaria(29,"Jocelyn Flores",3000,LocalDate.of(2021, 2, 1)));
-	System.out.println(c.isFree());
-	for(int i=0;i<c.getSize();i++)
-		System.out.println(c.getItem(i));
-
-
-	System.out.print("\nchequeo de deposito:"+ c.Deposito(3, 5));//cantidad a depositar
-	System.out.print("\nChequeo de retiro"+c.Retiro(3, 90000));
-	
-	c.EliminarCuenta(3);
-	System.out.println("\n\n\n\n");
-		for(int i=0;i<c.getSize();i++)
-		System.out.println(c.getItem(i));
+	}
+	 static void MontosTotales() {
+		float monto=0;
+		for(int i=0;i<c.getSize();i++) {
+			monto+=c.getItem(i).getSaldo();
+			
+		}
+			System.out.println("Monto total: $ "+monto);
+	}
 	
 		
-		System.out.println("EL MONTO TOTAL DE LAS CUENTAS ES DE :$"+c.MontosTotales());
-		System.out.println("EL MONTO PROMEDIO DE LAS CUENTAS ES DE: $"+c.PromedioMontosTotales());
-		System.out.println("CUENTAS CON UN MONTO MAYOR A $10,000.00:\n"+c.CuentaMillonaria());
-		System.out.println("saldo maximo: "+c.Saldomax());
-		System.out.println("saldo minimo: "+c.Saldomin()); */
+	static void PromedioMontosTotales() {
+		float monto=0;
+		for(int i=0;i<c.getSize();i++) 
+			monto+=c.getItem(i).getSaldo();
+			
+		float promedio=monto/c.getSize();
+		System.out.println("El monto promedio de las cuentas es: $"+promedio);
+	}
+	
+	static void cuenMayoraMil() {
+		if(!c.isFree()) {
+			for(int i=0;i<c.getSize();i++)
+				if(c.getItem(i).getSaldo()>10000)
+					System.out.println(c.getItem(i));
+	    }else
+	    	System.out.println("No existen cuentas por el momento ");
+	}
+	
+	static void CuentaMillonaria() {
+		if(!c.isFree()) {
+		int f=0;
+		for(int i=0;i<c.getSize();i++) 
+			if(c.getItem(i).getSaldo()>10000)
+				f++;
+			if(f!=0) {
+				f=0;
+				for(int i=0;i<c.getSize();i++)
+					if(c.getItem(i).getSaldo()>10000)
+				System.out.println(c.getItem(i));
+				}else
+					System.out.println("No hay ninguna cuenta mayor a $10,000.00");
+			}else
+				System.out.println("no existen cuentas");		
+		}
+	
+	
+	static float Saldomax() {
+		
+		float mayor=c.getItem(0).getSaldo();
+		int i=0;
+		for(;i<c.getSize();i++)
+			if(c.getItem(i).getSaldo()>mayor) {
+				mayor=c.getItem(i).getSaldo();
+			}
+		return mayor;
+	}
+	
+	static void CuentasMayores2() {
+		if(!c.isFree()) {
+		float mayor= Saldomax();
+		for(int i=0;i<c.getSize();i++)
+			if(c.getItem(i).getSaldo()==mayor)		
+		
+		for (;i<c.getSize();i++)
+			if(c.getItem(i).getSaldo()==mayor)
+				
+		System.out.println(c.getItem(i));
+		}else
+			System.out.println("No hay cuentas");
+	}
+	
+	static float Saldomin() {
+		float menor=c.getItem(0).getSaldo();
+		for (int i=0;i<c.getSize();i++)
+			if(c.getItem(i).getSaldo()<menor)
+				menor=c.getItem(i).getSaldo();
+		return menor;
+	}
+	static void CuentasMenores2() {
+		if(!c.isFree()) {
+			float  men=Saldomin();
+			for(int i=0;i<c.getSize();i++)
+				if(c.getItem(i).getSaldo()==men)
+			for(;i<c.getSize();i++)
+				if(c.getItem(i).getSaldo()==men)
+			System.out.println(c.getItem(i));
+				
+		}else
+			System.out.println("No se hayaron las cuentas ");
 	}
 	
 
